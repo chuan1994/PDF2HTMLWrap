@@ -20,6 +20,7 @@ public class Main {
 
 		if (args.length < 2) {
 			printHelp();
+			return;
 		}
 
 		processArgs(args);

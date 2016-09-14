@@ -31,14 +31,13 @@ public class HTMLConvert extends SwingWorker<Void, Void> {
 			p = Runtime.getRuntime().exec(command);
 			
 			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line = "";
 			
 			while((line = reader.readLine())!= null){
 				System.out.println(line);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
