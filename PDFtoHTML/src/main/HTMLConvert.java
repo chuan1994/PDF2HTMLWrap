@@ -30,15 +30,20 @@ public class HTMLConvert extends SwingWorker<Void, Void> {
 		try {
 			p = Runtime.getRuntime().exec(command);
 			
-			
+			BufferedReader reader1 = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line = "";
-			
-			while((line = reader.readLine())!= null){
-				System.out.println(line);
+			System.out.println("HI");
+			while((line = reader1.readLine())!= null){
 			}
 			
+			reader1.close();
+			reader.close();
+			
+			p.waitFor();
+			System.out.println("done");
 			p.destroy();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

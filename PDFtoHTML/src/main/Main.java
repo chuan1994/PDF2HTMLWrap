@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -32,9 +33,26 @@ public class Main {
 
 		extractJar();
 		jarFile.deleteOnExit();
+		
+		ArrayList<HTMLConvert> hcList = new ArrayList<HTMLConvert>();
+		
 		for (String x : keys) {
 			HTMLConvert hc = new HTMLConvert(x, inputFiles.get(x));
-			hc.run();
+			hcList.add(hc);
+			hc.execute();
+		}
+		
+		while(!hcList.isEmpty()){
+			ArrayList<HTMLConvert> removeList = new ArrayList<HTMLConvert>();
+			for(HTMLConvert hc : hcList){
+				if(hc.isDone()){
+					removeList.add(hc);
+				}
+			}
+			
+			for(HTMLConvert hc : removeList){
+				hcList.remove(hc);
+			}
 		}
 	}
 
