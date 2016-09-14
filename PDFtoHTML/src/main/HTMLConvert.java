@@ -37,6 +37,8 @@ public class HTMLConvert extends SwingWorker<Void, Void> {
 			while((line = reader.readLine())!= null){
 				System.out.println(line);
 			}
+			
+			p.destroy();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
