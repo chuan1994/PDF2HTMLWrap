@@ -19,6 +19,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		//Processing input params
 		if (args.length < 2) {
 			printHelp();
 			return;
@@ -31,9 +32,11 @@ public class Main {
 
 		Set<String> keys = inputFiles.keySet();
 
+		//Creating local version of resource, this is deleted after program ends
 		extractJar();
 		jarFile.deleteOnExit();
 		
+		//Running each input pdf on its on thread
 		ArrayList<HTMLConvert> hcList = new ArrayList<HTMLConvert>();
 		
 		for (String x : keys) {
@@ -42,6 +45,7 @@ public class Main {
 			hc.execute();
 		}
 		
+		//Wait for all processes to finish
 		while(!hcList.isEmpty()){
 			ArrayList<HTMLConvert> removeList = new ArrayList<HTMLConvert>();
 			for(HTMLConvert hc : hcList){
@@ -56,6 +60,10 @@ public class Main {
 		}
 	}
 
+	/**
+	 * This method processes the input params. 
+	 * @param args
+	 */
 	private static void processArgs(String[] args) {
 		File outTemp = new File(args[args.length - 1]);
 		setOutput(outTemp);
@@ -65,6 +73,10 @@ public class Main {
 		}
 	}
 
+	/**
+	 * this method will set the specified file as the output folder
+	 * @param outFolder
+	 */
 	private static void setOutput(File outFolder) {
 		if (outFolder.isFile()) {
 			System.out.println("Invalid output directory");
@@ -77,6 +89,7 @@ public class Main {
 		}
 	}
 
+	
 	private static void addInput(String path) {
 		File y = new File(path);
 		if (!y.isFile()) {
@@ -87,6 +100,9 @@ public class Main {
 		inputFiles.put(path, y);
 	}
 
+	/**
+	 * this method will provide information of how to run the program
+	 */
 	private static void printHelp() {
 		System.out.println("To execute this jar please follow following:");
 		System.out.println("Run the jar with a list of input files separated by a space followed by an output folder");
@@ -95,6 +111,9 @@ public class Main {
 		return;
 	}
 
+	/**
+	 * this method creates a local version of the PDFtoHTML jar to execute
+	 */
 	private static void extractJar() {
 		try {
 			InputStream resourceStream = Main.class.getResourceAsStream("/resources/PDFToHTML.jar");

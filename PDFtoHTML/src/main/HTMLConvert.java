@@ -7,6 +7,11 @@ import java.io.InputStreamReader;
 
 import javax.swing.SwingWorker;
 
+/**
+ * Class is responsible for converting the pdf document in the bakcground
+ * @author cwu323
+ *
+ */
 public class HTMLConvert extends SwingWorker<Void, Void> {
 
 	private String path;
@@ -19,7 +24,7 @@ public class HTMLConvert extends SwingWorker<Void, Void> {
 		this.pdf = pdf;
 		getOutput();
 		
-
+		//Creating the default command to run
 		command = "java -jar " + Main.jarFile.getAbsolutePath() + " " + path + " " + output.getPath();
 	}
 
@@ -28,20 +33,20 @@ public class HTMLConvert extends SwingWorker<Void, Void> {
 		Process p;
 		
 		try {
+			//Running process
 			p = Runtime.getRuntime().exec(command);
 			
 			BufferedReader reader1 = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String line = "";
-			System.out.println("HI");
 			while((line = reader1.readLine())!= null){
 			}
 			
 			reader1.close();
 			reader.close();
 			
+			//Wait for process then destroy after completing
 			p.waitFor();
-			System.out.println("done");
 			p.destroy();
 
 		} catch (IOException e) {
@@ -50,7 +55,10 @@ public class HTMLConvert extends SwingWorker<Void, Void> {
 		
 		return null;
 	}
-
+	
+	/**
+	 * Creating the output path. Considers cases where file already exists
+	 */
 	private void getOutput() {
 		String outputPath = Main.outputFolder.getPath() + File.separator + pdf.getName().split("\\.")[0] + ".html";
 
