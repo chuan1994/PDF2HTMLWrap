@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
+/**
+ * TEST CLASS CURRENTLY UNUSED
+ * @author cwu323
+ *
+ */
 public class background {
 
 	String input = "C:\\Users\\chuan\\Desktop\\700\\21phd.pdf";
