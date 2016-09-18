@@ -25,4 +25,19 @@ PDFtoHTML is a standalone tool, this code wraps it to allow multiple input capab
 The source code is explained below.
 
 ###Package - main
-Responsible for starting and running extractor classes.
+Responsible for running the PDFtoHTML jar in the background
+
+**Main class:**
+- entry point to the program
+- parses the parameters provided
+- provides help messages if input parameters are incorrect
+- creates a local version of the resources (PDFtoHTML.jar), this file is removed after all processes are completed
+- starts and handles all of the tasks running in background
+
+**background class:**
+- test class to make sure the HTML conversion is working
+- not used but kept as easy to test later if modifying code later
+
+**HTML class:**
+- extends swing worker to run task in background
+- executes the PDFtoHTML jar file as a process
